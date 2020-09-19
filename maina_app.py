@@ -1,16 +1,17 @@
 import cv2
 import numpy as np
 
-myColors = [[0 ,82 ,165 ,179, 147 ,204],
-            [0 ,179, 132, 212, 174, 231],
+myColors = [[0 ,87, 179, 179, 175, 255],
+            [86 ,96, 70, 131, 142, 192],
             ]
 
 def findColor(img,myColors):
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    lower = np.array(myColors[0][0:3])
-    upper = np.array(myColors[0][3:6])
-    mask = cv2.inRange(imgHSV,lower,upper)
-    cv2.imshow("img",mask)            
+    for color in myColors:
+        lower = np.array(color[0:3])
+        upper = np.array(color[3:6])
+        mask = cv2.inRange(imgHSV,lower,upper)
+        cv2.imshow("img",mask)            
 
 frame_height = 640
 frame_width = 480
