@@ -12,7 +12,7 @@ def findColor(img,myColors):
         upper = np.array(color[3:6])
         mask = cv2.inRange(imgHSV,lower,upper)
         x,y = getContours(mask)
-        cv2.circle(imgResult,(x,y),10,(255,0,0),cv2.FILLED)
+        cv2.circle(imgResult,(x,y),10, myColors[],cv2.FILLED)
         #cv2.imshow("img",mask)            
 
 def getContours(img):
