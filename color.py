@@ -36,7 +36,7 @@ while True:
     imgResult = cv2.bitwise_and(img,img,mask=mask)
 
     cv2.imshow("webcam" ,img)
-    cv2.imshow("HSV", imgHSV)
+    #cv2.imshow("HSV", imgHSV)
     cv2.imshow("Mask", mask)
     cv2.imshow("Result", imgResult)
     if cv2.waitKey(1) & 0xFF == ord('q'):
