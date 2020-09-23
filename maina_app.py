@@ -4,16 +4,27 @@ import numpy as np
 myColors = [[0, 100, 151 ,179, 247 ,255],
             [102 ,77, 118, 131, 255, 255],
             ]
+myColorValues = [[0,128,255],
+                [204,204,0],
+                ]
 
-def findColor(img,myColors):
+myPoints = []            
+
+def findColor(img,myColors,myColorValues):
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    count = 0
+    newPoints = []
     for color in myColors:
         lower = np.array(color[0:3])
         upper = np.array(color[3:6])
         mask = cv2.inRange(imgHSV,lower,upper)
         x,y = getContours(mask)
-        cv2.circle(imgResult,(x,y),10, myColors[],cv2.FILLED)
-        #cv2.imshow("img",mask)            
+        cv2.circle(imgResult,(x,y),10, myColorValues[count],cv2.FILLED)
+        if x!=0 and y!=0:
+            newPoints.append([x,y,count])
+        count+=1
+        #cv2.imshow("img",mask)  
+    return newPoints    
 
 def getContours(img):
     contours,heirarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -27,6 +38,10 @@ def getContours(img):
             x,y,w,h = cv2.boundingRect(approx)    
     return x+w//2,y    
 
+def drawonCanvas(myPoints, myColors):
+    for points in myPoints:
+        cv2.circle(imgResult,(points[0],points[1]),10,myColorValues[points[2]],cv2.FILLED)
+
 frame_height = 640
 frame_width = 480
 cap = cv2.VideoCapture(0)
@@ -37,7 +52,14 @@ cap.set(10,150)
 while True:
     success , img = cap.read()
     imgResult = img.copy() 
-    findColor(img,myColors)
+    newPoints = findColor(img,myColors,myColorValues)
+    if len(newPoints)!= 0:
+        for newP in newPoints:
+            myPoints.append(newP)
+    
+    if len(myPoints)!= 0:
+        drawonCanvas(myPoints,myColors)
+
     cv2.imshow("Webcam Video", imgResult)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
