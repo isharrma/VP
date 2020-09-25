@@ -1,11 +1,9 @@
 import cv2
 import numpy as np
 
-myColors = [[0, 100, 151 ,179, 247 ,255],
-            [102 ,77, 118, 131, 255, 255],
+myColors = [[0, 100, 151 ,179, 247 ,255]
             ]
-myColorValues = [[0,128,255],
-                [204,204,0],
+myColorValues = [[0,128,255]
                 ]
 
 myPoints = []            
