@@ -53,6 +53,17 @@ while True:
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,kernel)
     mask = cv2.dilate(mask,kernel, iterations=1)
 
+    cnts ,_ = cv2.findContours(mask.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+    center = 0
+
+    if len(cnts)>0:
+        cnt = sorted(cnts,key = cv2.contourArea,reverse=True)[0]
+        ((x,y),radius) = cv2.minEnclosingCircle(cnt)
+        cv2.circle(imgflip,(int(x),int(y),int(radius)),(0,255,255),2)
+        M = cv2.moments(cnt)
+        center = (int(M['m10']/M['m00']),int(M['m10']/M["m00"]))
+
+
     getContours(imgCanny)
     cv2.imshow("HSV",imgHSV)
     cv2.imshow("Mask",mask)
