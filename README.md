@@ -36,8 +36,6 @@ Air Canvas project makes use of dequeues to hold the values of coordinates for v
 *	Detect the contours, find the center coordinates of largest contour and keep storing them in the dequeue for successive frames.
 *	Finally draw the points stored in dequeues on the frames and canvas.
 
-# Demo
 
-![Virtual_Paint](https://user-images.githubusercontent.com/54413011/103149837-65e1e600-4793-11eb-8d24-ca88100a3712.png)
 
 
